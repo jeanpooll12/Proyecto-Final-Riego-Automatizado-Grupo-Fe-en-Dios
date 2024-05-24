@@ -75,14 +75,13 @@ Total gastado:$131.600<br>
 ##Componentes del Sistema:<br>
 **Planta:**  Duranta, Planta de clima cálido.<br><br>
 Fuente de alimentación: conexión de 5v (Voltios) a corriente alterna.<br><br>
-**Depósito de agua:** Es donde se almacena el agua para que sea suministrada a la planta<br><br>
 **Arduino:** Actúa como el cerebro del sistema. Recibe la información del sensor de humedad del suelo, procesa los datos y controla la activación y desactivación del motor de riego en función de las lecturas de humedad.<br><br>
 **Leds:** Estos indican cuando el proyecto esta encendido y dependiendo lo que detecte el ultrasonido indica que la cantidad de agua se encuentra en el recipiente del agua<br><br>
 Rele: Se utiliza para controlar la activación del motor de riego.<br><br>
 **Motor de riego:** Este componente es responsable de bombear el agua desde un depósito hacia la planta. Se activa cuando el nivel de humedad del suelo cae por debajo de un umbral predefinido y se desactiva después de un período de tiempo determinado.<br><br>
 **Ultrasonido:** se utiliza para detectar el nivel del agua el cual detecta a base de hondas el cual cuenta con un emisor que emite ráfagas de ultrasonido en forma de ondas y el receptor recibe las ondas y determina a que distancia máxima de 30cm (Centímetros)<br><br>
 **Sensor de Humedad:** se utiliza para medir continuamente el nivel de humedad en el suelo donde se encuentra la planta. Este sensor detectará el nivel actual de humedad y enviará esta información al microcontrolador del sistema.<br><br>
-**Depósito de Agua:** Contiene el agua que se utilizará para regar las plantas. Debe ser lo suficientemente grande para mantener un suministro adecuado durante un período de tiempo prolongado.<br><br>
+**Depósito de Agua:** Contiene el agua que se utilizará para regar la planta. Debe ser lo suficientemente grande para mantener un suministro adecuado durante un período de tiempo prolongado.<br><br>
 **Modulo bluetooth:** Nos permite realizar un enlace entre nuestro portátil o teléfono.<br><br>
 **Caja Plástica Con Tornillos** Lo que se encuentra dentro de esta lo que es el arduino, módulo relé, PCB, Modulo bluetooth, conexiones del sensor de humedad, conexiones del motor de riego.<br><br>
 
