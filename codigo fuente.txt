@@ -1,0 +1,89 @@
+#include <SoftwareSerial.h> // Incluye la biblioteca SoftwareSerial para la comunicación serial con Bluetooth
+
+SoftwareSerial BTSerial(10, 11); // Configura los pines de Arduino para comunicación serial con el módulo Bluetooth
+
+int trig = 2;
+int echo = 3;
+long duracion;
+long distancia;
+
+// Pines para los LEDs
+int verde = 9;
+int amarillo = 7;
+int rojo = 6;
+
+int bomba = 8;
+int humedadPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+  BTSerial.begin(9600); // Inicia la comunicación serial con el módulo Bluetooth
+
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+
+  pinMode(verde, OUTPUT);
+  pinMode(amarillo, OUTPUT);
+  pinMode(rojo, OUTPUT);
+
+  pinMode(bomba, OUTPUT);
+}
+
+void loop() {
+  // Lectura de distancia con el sensor ultrasónico
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  
+  duracion = pulseIn(echo, HIGH);
+  duracion = duracion / 2;
+  distancia = duracion / 29.15;
+
+  // Control de los LEDs según la distancia medida
+  if (distancia <= 10) {
+    digitalWrite(verde, HIGH);
+    digitalWrite(amarillo, LOW);
+    digitalWrite(rojo, LOW);
+  } else if (distancia <= 20) {
+    digitalWrite(verde, LOW);
+    digitalWrite(amarillo, HIGH);
+    digitalWrite(rojo, LOW);
+  } else if (distancia <= 30) {
+    digitalWrite(verde, LOW);
+    digitalWrite(amarillo, LOW);
+    digitalWrite(rojo, HIGH);
+  } else {
+    digitalWrite(verde, LOW);
+    digitalWrite(amarillo, LOW);
+    digitalWrite(rojo, LOW);
+  }
+
+  // Lectura de humedad del suelo y normalización al rango 0-100%
+  int humedadLectura = analogRead(humedadPin);
+  int humedad = map(humedadLectura, 0, 1023, 0, 100); // Normaliza la lectura a porcentaje
+
+  // Activar la bomba si la humedad está por encima del 60%
+  if (humedad > 60) {
+    digitalWrite(bomba, LOW); // Enciende la bomba
+  } else {
+    digitalWrite(bomba, HIGH); // Apaga la bomba
+  }
+
+  // Envía los datos de distancia y humedad a través de Bluetooth y serial
+  BTSerial.print("Distancia: ");
+  BTSerial.print(distancia);
+  BTSerial.print(" cm, Humedad: ");
+  BTSerial.print(humedad);
+  BTSerial.println(" %");
+
+  // Envía los datos a través del serial
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.print(" cm, Humedad: ");
+  Serial.print(humedad);
+  Serial.println(" %");
+
+delay(1000);
+}
